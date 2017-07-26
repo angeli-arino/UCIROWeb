@@ -439,7 +439,7 @@ fieldset[disabled] .btn-success.active {
   border: none;
   min-height: 100%;
   padding: 100px 0;
-  text-align: center;
+  text-align: left;
 }
 .portfolio-modal .modal-content h2 {
   margin: 0;
@@ -448,6 +448,11 @@ fieldset[disabled] .btn-success.active {
 .portfolio-modal .modal-content img {
   margin-bottom: 30px;
 }
+
+.portfolio-modal .modal-content .modal-body .country-date {
+  padding: 50px;
+}
+
 .portfolio-modal .modal-content .item-details {
   margin: 30px 0;
 }
@@ -490,6 +495,12 @@ fieldset[disabled] .btn-success.active {
   opacity: 0;
   display: none;
 }
+
+.country-date {
+  padding: 50px;
+  text-align: center;
+}
+
 #skipnav a {
   padding: 6px;
   position: absolute;
