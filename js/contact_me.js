@@ -10,6 +10,7 @@ $(function() {
             $("#btnSubmit").attr("disabled", true);
             event.preventDefault();
 
+
             // get values from FORM
             var name = $("input#name").val();
             var phone = $("input#phone").val();
@@ -19,6 +20,8 @@ $(function() {
             if (firstName.indexOf(' ') >= 0) {
                 firstName = name.split(' ').slice(0, -1).join(' ');
             }
+
+            alert("HEllo!!!");
 
             var database = firebase.database().ref('alerts/');
 
@@ -53,4 +56,53 @@ $(function() {
 // When clicking on Full hide fail/success boxes
 $('#name').focus(function() {
     $('#success').html('');
+});
+
+//Add another contact
+$(".addAnother").click(function(event){
+  event.preventDefault();
+  var html = $(".copyContact").html();
+  $(".contactContainer").append(html);
+});
+
+//Add another travel info
+$(".addTravel").click(function(event){
+  event.preventDefault();
+  var html = $(".copyTravel").html();
+  $(".travelContainer").append(html);
+});
+
+//Add another Risk info
+$(".addRisk").click(function(event){
+  event.preventDefault();
+  var html = $(".copyRisk").html();
+  $(".riskContainer").append(html);
+});
+
+//Add another Local Lingo
+$(".addLingo").click(function(event){
+  event.preventDefault();
+  var html = $(".copyLingo").html();
+  $(".lingoContainer").append(html);
+});
+
+$(".checkIt").click(function(event){
+  event.preventDefault();
+  console.log("bibo");
+  console.log("hello");
+  alert("Hello po");
+  $('#travelPlan').submit();
+});
+
+$('#travelPlan').submit(function(event) {
+  event.preventDefault();
+  alert("Sumit called!");
+  var data = {};
+  $('#travelPlan').serializeArray().map(function(x){data[x.name] = x.value;});
+  console.log(data);
+  alert("data printed!");
+
+  var database = firebase.database().ref('tripPlan/');
+  database.push(data);
+  alert("Data pushed!");
 });
