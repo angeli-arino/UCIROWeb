@@ -131,12 +131,16 @@ $('#travelPlan').submit(function(event) {
     }
   });
 
+  console.log(travel);
+
   var travelInfo = [];
-  $("input[name=travelInfo]").each(function () {
+  $("textarea[name=travelInfo]").each(function () {
     if ($(this).val() != "") {
       travelInfo.push($(this).val());
     }
   });
+
+  console.log(travelInfo);
 
   //For risk
   var risk = []
@@ -147,7 +151,7 @@ $('#travelPlan').submit(function(event) {
   });
 
   var riskInfo = []
-  $("input[name=riskInfo]").each(function () {
+  $("textarea[name=riskInfo]").each(function () {
     if ($(this).val() != "") {
       riskInfo.push($(this).val());
     }
@@ -170,7 +174,7 @@ $('#travelPlan').submit(function(event) {
 
   //Create KeyContacts
   var arrayLength = name.length;
-  var keyContact = firebase.database().ref('keyContacts');
+  var keyContact = firebase.database().ref('keyContacts/');
   for (var i = 0; i < arrayLength; i++) {
     var contact = {};
     contact = {
@@ -181,10 +185,10 @@ $('#travelPlan').submit(function(event) {
     };
     keyContact.push(contact);
   }
-
+  alert("Contact Pushed");
   //Create travelInfo
   var arrayLength = travel.length;
-  var traveldata = firebase.database().ref('travelInfo');
+  var traveldata = firebase.database().ref('travelInfo/');
   for (var i = 0; i < arrayLength; i++) {
     var travelList = {};
     travelList = {
@@ -192,12 +196,15 @@ $('#travelPlan').submit(function(event) {
       travelInfo: travelInfo[i],
       country: country
     };
-    keyContact.push(traveldata);
+
+    console.log(travelList);
+    traveldata.push(travelList);
   }
+  alert("Travel Info pushed!");
 
   //Create riskInfo
   var arrayLength = risk.length;
-  var riskdata = firebase.database().ref('riskInfo');
+  var riskdata = firebase.database().ref('riskInfo/');
   for (var i = 0; i < arrayLength; i++) {
     var riskList = {};
     riskList = {
@@ -205,7 +212,7 @@ $('#travelPlan').submit(function(event) {
       riskInfo: riskInfo[i],
       country: country
     };
-    keyContact.push(riskdata);
+    riskdata.push(riskList);
   }
 
 
