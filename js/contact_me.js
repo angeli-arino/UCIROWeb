@@ -88,9 +88,6 @@ $(".addLingo").click(function(event){
 
 $(".checkIt").click(function(event){
   event.preventDefault();
-  console.log("bibo");
-  console.log("hello");
-  alert("Hello po");
   $('#travelPlan').submit();
 });
 
@@ -101,6 +98,116 @@ $('#travelPlan').submit(function(event) {
   $('#travelPlan').serializeArray().map(function(x){data[x.name] = x.value;});
   console.log(data);
   alert("data printed!");
+
+  //Grab Values
+  var country = "";
+  country = data.country;
+
+  //For Key Contacts
+  var name = [];
+  $("input[name=name]").each(function () {
+    if ($(this).val() != "") {
+      name.push($(this).val());
+    }
+  });
+
+  var phone = [];
+  $("input[name=phone]").each(function () {
+    if ($(this).val() != "") {
+      phone.push($(this).val());
+    }
+  });
+
+  var email = [];
+  $("input[name=email]").each(function () {
+      email.push($(this).val());
+  });
+
+  //For info
+  var travel = [];
+  $("input[name=travel]").each(function () {
+    if ($(this).val() != "") {
+      travel.push($(this).val());
+    }
+  });
+
+  var travelInfo = [];
+  $("input[name=travelInfo]").each(function () {
+    if ($(this).val() != "") {
+      travelInfo.push($(this).val());
+    }
+  });
+
+  //For risk
+  var risk = []
+  $("input[name=risk]").each(function () {
+    if ($(this).val() != "") {
+      risk.push($(this).val());
+    }
+  });
+
+  var riskInfo = []
+  $("input[name=riskInfo]").each(function () {
+    if ($(this).val() != "") {
+      riskInfo.push($(this).val());
+    }
+  });
+
+  //For lingo
+  var word = []
+  $("input[name=word]").each(function () {
+    if ($(this).val() != "") {
+      word.push($(this).val());
+    }
+  });
+
+  var meaning = []
+  $("input[name=meaning]").each(function () {
+    if ($(this).val() != "") {
+      meaning.push($(this).val());
+    }
+  });
+
+  //Create KeyContacts
+  var arrayLength = name.length;
+  var keyContact = firebase.database().ref('keyContacts');
+  for (var i = 0; i < arrayLength; i++) {
+    var contact = {};
+    contact = {
+      name: name[i],
+      phone: phone[i],
+      email: email[i],
+      country: country
+    };
+    keyContact.push(contact);
+  }
+
+  //Create travelInfo
+  var arrayLength = travel.length;
+  var traveldata = firebase.database().ref('travelInfo');
+  for (var i = 0; i < arrayLength; i++) {
+    var travelList = {};
+    travelList = {
+      travel: travel[i],
+      travelInfo: travelInfo[i],
+      country: country
+    };
+    keyContact.push(traveldata);
+  }
+
+  //Create riskInfo
+  var arrayLength = risk.length;
+  var riskdata = firebase.database().ref('riskInfo');
+  for (var i = 0; i < arrayLength; i++) {
+    var riskList = {};
+    riskList = {
+      risk: risk[i],
+      riskInfo: riskInfo[i],
+      country: country
+    };
+    keyContact.push(riskdata);
+  }
+
 
   var database = firebase.database().ref('tripPlan/');
   database.push(data);
